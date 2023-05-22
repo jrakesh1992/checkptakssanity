@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: configserver-depl
+  name: apiserver-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: configserver
+      app: apiserver
   template:
     metadata:
       labels:
-        app: configserver
+        app: apiserver
     spec:
       containers:
-      - name: configserver
-        image: haloserver.azurecr.io/halo-configserver-v1.0.0:M01-2023-02-07-1003-develop-optix-B1102
+      - name: apiserver
+        image: haloserver.azurecr.io/halo-apiserver-v1.0.0:M01-2023-03-19-1800-develop-optix-B1209
         # image: mcr.microsoft.com/oss/nginx/nginx:1.15.5-alpine
-        args: [ "bash", "-c", "cd /usr/local/ofs/conf && ./haloserver start && /bin/bash" ]
+        args: [ "bash", "-c", "cd /usr/local/ofs/conf && ./optixserver start && /bin/bash" ]
         env:
         - name: INSTANCE_HOST
         - name: INSTANCE_NAME
@@ -24,20 +24,17 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: TIMEZONE
+        - name: INSTANCE_TYPE
+          value: "apiserver"
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8443
           - containerPort: 8444
-          - containerPort: 8080
         resources:
           requests:
             cpu: 0.3
             memory: 3Gi
-            #cpu: 200m
-            #memory: 128Mi
           limits:
-            #cpu: 350m
-            #memory: 256Mi
             cpu: 0.6
             memory: 3Gi
         stdin: true
