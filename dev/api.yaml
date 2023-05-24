@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: apiserver
-        image: haloserver.azurecr.io/halo-apiserver-v1.0.0:M01-2023-03-19-1800-develop-optix-B1209
+        image: haloserver.azurecr.io/halo-apiserver-v1.1.0:M01-2023-05-21-1843-develop-optix-B1322
         # image: mcr.microsoft.com/oss/nginx/nginx:1.15.5-alpine
         args: [ "bash", "-c", "cd /usr/local/ofs/conf && ./optixserver start && /bin/bash" ]
         env:
